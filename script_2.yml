@@ -1,0 +1,27 @@
+name: Discord Webhook
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  webhook:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Start server
+        run: node server.js
+
+      - name: Wait for server to start
+        run: sleep 10
+
+      - name: Send webhook request
+        run: |
+          curl -X POST \
+            https://discord.com/api/webhooks/155347639
